@@ -48,6 +48,11 @@ PLATFORMS_BY_TYPE: dict[str, list] = {
 }
 
 
+async def async_setup(hass: HomeAssistant, config: dict) -> bool:
+    """Set up the EZVIZ component."""
+    return True
+
+
 async def async_setup_entry(hass: HomeAssistant, entry: EzvizConfigEntry) -> bool:
     """Set up EZVIZ from a config entry."""
     sensor_type: str = entry.data[CONF_TYPE]
