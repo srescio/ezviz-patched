@@ -88,7 +88,7 @@ def _test_camera_rtsp_creds(data: dict) -> None:
     test_rtsp.main()
 
 
-class EzvizPatchedConfigFlow(ConfigFlow, domain=DOMAIN):
+class EzvizConfigFlow(ConfigFlow, domain=DOMAIN):
     """Handle a config flow for EZVIZ."""
 
     VERSION = 1
