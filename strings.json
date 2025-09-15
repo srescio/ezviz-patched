@@ -3,7 +3,7 @@
     "flow_title": "{serial}",
     "step": {
       "user": {
-        "title": "Connect to EZVIZ Cloud",
+        "title": "Connect to EZVIZ Cloud (Patched)",
         "data": {
           "username": "[%key:common::config_flow::data::username%]",
           "password": "[%key:common::config_flow::data::password%]",
@@ -11,7 +11,7 @@
         }
       },
       "user_custom_url": {
-        "title": "Connect to custom EZVIZ URL",
+        "title": "Connect to custom EZVIZ URL (Patched)",
         "description": "Manually specify your region URL",
         "data": {
           "username": "[%key:common::config_flow::data::username%]",

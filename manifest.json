@@ -1,6 +1,6 @@
 {
   "domain": "ezviz_patched",
-  "name": "EZVIZ (Patched)",
+  "name": "EZVIZ Patched",
   "documentation": "https://www.home-assistant.io/integrations/ezviz",
   "requirements": ["pyEzviz==0.2.0.4"],
   "codeowners": ["@baqs"],

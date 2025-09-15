@@ -88,7 +88,7 @@ def _test_camera_rtsp_creds(data: dict) -> None:
     test_rtsp.main()
 
 
-class EzvizConfigFlow(ConfigFlow, domain=DOMAIN):
+class EzvizPatchedConfigFlow(ConfigFlow, domain=DOMAIN):
     """Handle a config flow for EZVIZ."""
 
     VERSION = 1
@@ -390,7 +390,7 @@ class EzvizConfigFlow(ConfigFlow, domain=DOMAIN):
         )
 
 
-class EzvizOptionsFlowHandler(OptionsFlowWithReload):
+class EzvizPatchedOptionsFlowHandler(OptionsFlowWithReload):
     """Handle EZVIZ client options."""
 
     async def async_step_init(

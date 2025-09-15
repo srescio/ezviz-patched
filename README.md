@@ -12,6 +12,15 @@ A patched version of the EZVIZ integration that fixes the `KeyError: 'mode'` bug
 
 ## 📦 Installation via HACS
 
+⚠️ **IMPORTANT**: You must remove the original EZVIZ integration first, otherwise you'll get a "account is already configured" error.
+
+### Step 1: Remove Original EZVIZ Integration
+1. **Go to Settings > Devices & Services**
+2. **Find the original "EZVIZ" integration**
+3. **Click on it → Three dots menu (⋮) → Delete**
+4. **Confirm deletion and restart Home Assistant**
+
+### Step 2: Install EZVIZ Patched
 1. **Open HACS** in Home Assistant
 2. **Go to Integrations**
 3. **Click the three dots menu** (⋮)
@@ -22,6 +31,12 @@ A patched version of the EZVIZ integration that fixes the `KeyError: 'mode'` bug
 6. **Click "Add"**
 7. **Find "EZVIZ Patched"** in the store and install it
 8. **Restart Home Assistant**
+
+### Step 3: Configure EZVIZ Patched
+1. **Go to Settings > Devices & Services**
+2. **Click "Add Integration"**
+3. **Search for "EZVIZ Patched"**
+4. **Configure your EZVIZ account**
 
 ## 🚀 Usage
 
