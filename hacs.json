@@ -1,0 +1,7 @@
+{
+  "name": "EZVIZ Patched",
+  "content_in_root": true,
+  "filename": "ezviz_patched",
+  "country": ["US", "GB", "DE", "FR", "ES", "IT", "NL", "BE", "CH", "AT", "SE", "NO", "DK", "FI", "PL", "CZ", "HU", "RO", "BG", "HR", "SI", "SK", "LT", "LV", "EE", "IE", "PT", "GR", "CY", "MT", "LU", "IS", "LI", "MC", "SM", "VA", "AD", "AU", "CA", "NZ", "JP", "KR", "SG", "HK", "TW", "TH", "MY", "ID", "PH", "VN", "IN", "BR", "MX", "AR", "CL", "CO", "PE", "VE", "UY", "PY", "BO", "EC", "GY", "SR", "GF", "FK", "ZA", "EG", "MA", "TN", "DZ", "LY", "SD", "ET", "KE", "UG", "TZ", "GH", "NG", "CI", "SN", "ML", "BF", "NE", "TD", "CM", "CF", "CG", "CD", "AO", "ZM", "ZW", "BW", "NA", "SZ", "LS", "MG", "MU", "SC", "KM", "DJ", "SO", "ER", "RW", "BI", "MW", "MZ", "MG", "MU", "SC", "KM", "DJ", "SO", "ER", "RW", "BI", "MW", "MZ"],
+  "homeassistant": "2025.9.0"
+}
