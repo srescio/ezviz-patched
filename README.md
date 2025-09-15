@@ -10,17 +10,18 @@ A patched version of the EZVIZ integration that fixes the `KeyError: 'mode'` bug
 - **KeyError: 'mode' bug**: Fixed the missing 'mode' sensor type that was causing most EZVIZ sensors to become unavailable
 - **Comprehensive test coverage**: Added 73 tests to prevent future regressions
 
-## 📦 Installation
+## 📦 Installation via HACS
 
-### HACS (Recommended)
-1. Install this custom component through HACS
-2. Restart Home Assistant
-3. The integration will appear as "EZVIZ (Patched)" in the integrations list
-
-### Manual Installation
-1. Download the latest release
-2. Extract the `ezviz_patched` folder to your `custom_components` directory
-3. Restart Home Assistant
+1. **Open HACS** in Home Assistant
+2. **Go to Integrations**
+3. **Click the three dots menu** (⋮)
+4. **Select "Custom repositories"**
+5. **Add repository:**
+   - Repository: `https://github.com/yourusername/ezviz-patched`
+   - Category: `Integration`
+6. **Click "Add"**
+7. **Find "EZVIZ Patched"** in the store and install it
+8. **Restart Home Assistant**
 
 ## 🚀 Usage
 

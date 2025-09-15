@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Script to set up remote Git repository for EZVIZ Patched HACS component
+# Simple script to set up Git remote for EZVIZ Patched HACS component
 
-echo "EZVIZ Patched - Git Repository Setup"
-echo "===================================="
+echo "EZVIZ Patched - Git Setup"
+echo "========================="
 echo ""
 
 # Check if we're in a git repository
@@ -38,16 +38,6 @@ echo "✅ Repository setup complete!"
 echo ""
 echo "📋 Next steps:"
 echo "1. Your repository is now available at: $REPO_URL"
-echo "2. You can install this component in HACS by adding the repository URL"
+echo "2. Install in HACS by adding the repository URL"
 echo "3. In HACS, go to 'Custom Repositories' and add: $REPO_URL"
 echo "4. Then install 'EZVIZ Patched' from the HACS store"
-echo ""
-echo "🔗 HACS Installation:"
-echo "1. Open HACS in Home Assistant"
-echo "2. Go to 'Integrations'"
-echo "3. Click the three dots menu"
-echo "4. Select 'Custom repositories'"
-echo "5. Add repository: $REPO_URL"
-echo "6. Category: Integration"
-echo "7. Click 'Add'"
-echo "8. Find 'EZVIZ Patched' in the store and install it"
