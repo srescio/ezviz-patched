@@ -3,7 +3,9 @@
 ## Integration Not Appearing in HACS
 
 ### Check Repository Structure
+
 Make sure your repository has this structure:
+
 ```
 ezviz-patched/
 ├── hacs.json                    # HACS configuration
@@ -19,13 +21,123 @@ ezviz-patched/
 ```
 
 ### Verify HACS Configuration
+
 Check that `hacs.json` contains:
+
 ```json
 {
   "name": "EZVIZ Patched",
   "content_in_root": false,
   "filename": "ezviz_patched",
-  "country": ["US", "GB", "DE", "FR", "ES", "IT", "NL", "BE", "CH", "AT", "SE", "NO", "DK", "FI", "PL", "CZ", "HU", "RO", "BG", "HR", "SI", "SK", "LT", "LV", "EE", "IE", "PT", "GR", "CY", "MT", "LU", "IS", "LI", "MC", "SM", "VA", "AD", "AU", "CA", "NZ", "JP", "KR", "SG", "HK", "TW", "TH", "MY", "ID", "PH", "VN", "IN", "BR", "MX", "AR", "CL", "CO", "PE", "VE", "UY", "PY", "BO", "EC", "GY", "SR", "GF", "FK", "ZA", "EG", "MA", "TN", "DZ", "LY", "SD", "ET", "KE", "UG", "TZ", "GH", "NG", "CI", "SN", "ML", "BF", "NE", "TD", "CM", "CF", "CG", "CD", "AO", "ZM", "ZW", "BW", "NA", "SZ", "LS", "MG", "MU", "SC", "KM", "DJ", "SO", "ER", "RW", "BI", "MW", "MZ"],
+  "country": [
+    "US",
+    "GB",
+    "DE",
+    "FR",
+    "ES",
+    "IT",
+    "NL",
+    "BE",
+    "CH",
+    "AT",
+    "SE",
+    "NO",
+    "DK",
+    "FI",
+    "PL",
+    "CZ",
+    "HU",
+    "RO",
+    "BG",
+    "HR",
+    "SI",
+    "SK",
+    "LT",
+    "LV",
+    "EE",
+    "IE",
+    "PT",
+    "GR",
+    "CY",
+    "MT",
+    "LU",
+    "IS",
+    "LI",
+    "MC",
+    "SM",
+    "VA",
+    "AD",
+    "AU",
+    "CA",
+    "NZ",
+    "JP",
+    "KR",
+    "SG",
+    "HK",
+    "TW",
+    "TH",
+    "MY",
+    "ID",
+    "PH",
+    "VN",
+    "IN",
+    "BR",
+    "MX",
+    "AR",
+    "CL",
+    "CO",
+    "PE",
+    "VE",
+    "UY",
+    "PY",
+    "BO",
+    "EC",
+    "GY",
+    "SR",
+    "GF",
+    "FK",
+    "ZA",
+    "EG",
+    "MA",
+    "TN",
+    "DZ",
+    "LY",
+    "SD",
+    "ET",
+    "KE",
+    "UG",
+    "TZ",
+    "GH",
+    "NG",
+    "CI",
+    "SN",
+    "ML",
+    "BF",
+    "NE",
+    "TD",
+    "CM",
+    "CF",
+    "CG",
+    "CD",
+    "AO",
+    "ZM",
+    "ZW",
+    "BW",
+    "NA",
+    "SZ",
+    "LS",
+    "MG",
+    "MU",
+    "SC",
+    "KM",
+    "DJ",
+    "SO",
+    "ER",
+    "RW",
+    "BI",
+    "MW",
+    "MZ"
+  ],
   "homeassistant": "2025.9.0"
 }
 ```
@@ -40,6 +152,7 @@ Check that `hacs.json` contains:
 ## Integration Not Appearing in Home Assistant
 
 ### Check Installation
+
 1. Verify the integration was installed successfully in HACS
 2. Check that the files are in the correct location:
    - `custom_components/ezviz_patched/` directory exists
@@ -47,13 +160,17 @@ Check that `hacs.json` contains:
    - All Python files are present
 
 ### Check Logs
+
 Look for errors in the Home Assistant logs:
+
 1. Go to Settings > System > Logs
 2. Look for any errors related to `ezviz_patched`
 3. Check for import errors or missing dependencies
 
 ### Verify Manifest
+
 The `manifest.json` should contain:
+
 ```json
 {
   "domain": "ezviz_patched",
@@ -71,6 +188,7 @@ The `manifest.json` should contain:
 This happens when the original EZVIZ integration is still configured. You must:
 
 1. **Remove the original EZVIZ integration**:
+
    - Go to Settings > Devices & Services
    - Find "EZVIZ" integration
    - Click on it → Three dots menu (⋮) → Delete
@@ -86,10 +204,12 @@ This happens when the original EZVIZ integration is still configured. You must:
 ## Sensors Still Not Working
 
 1. **Verify you're using the patched version**:
+
    - Check that the integration name is "EZVIZ Patched"
    - Look for the domain `ezviz_patched` in the logs
 
 2. **Check sensor configuration**:
+
    - Verify your EZVIZ account credentials
    - Check that the integration is properly configured
 
