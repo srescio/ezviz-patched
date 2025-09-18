@@ -231,17 +231,11 @@
   "repairs": {
     "temporary_fix_active": {
       "title": "🔧 EZVIZ Patched - Temporary Fix Active",
-      "description": "**Issue Fixed:** [GitHub Issue #151648]({issue_url})\n\n**Problem:** EZVIZ sensors were unavailable due to missing 'mode' sensor type causing KeyError exceptions.\n\n**Solution:** This custom component provides a temporary fix until the official patch is released in Home Assistant core.\n\n**Action Required:** Once Home Assistant 2025.9.0+ is released with the official fix, remove this custom component and use the built-in EZVIZ integration.\n\n**Status:** ✅ Temporary fix is working correctly",
-      "data": {
-        "remove_component": "Remove custom component"
-      }
+      "description": "This custom component fixes [GitHub Issue #151648]({issue_url}) where EZVIZ sensors were unavailable due to missing 'mode' sensor type causing KeyError exceptions.\n\n**Problem:** EZVIZ sensors were unavailable due to missing 'mode' sensor type.\n\n**Solution:** This custom component provides a temporary fix until the official patch is released in Home Assistant core.\n\n**Action Required:** Once Home Assistant 2025.9.0+ is released with the official fix, remove this custom component and use the built-in EZVIZ integration.\n\n**Status:** ✅ Temporary fix is working correctly"
     },
     "issue_closed_remove_component": {
       "title": "🎉 EZVIZ Patched - Issue Resolved",
-      "description": "**Great news!** [GitHub Issue #151648]({issue_url}) has been resolved!\n\n**Official Fix Available:** The fix is now included in Home Assistant core.\n\n**Action Required:** Remove this custom component and use the official EZVIZ integration instead.\n\n**Next Steps:**\n1. Remove this custom component\n2. Restart Home Assistant\n3. Use the built-in EZVIZ integration",
-      "data": {
-        "remove_component": "Remove custom component now"
-      }
+      "description": "**Great news!** [GitHub Issue #151648]({issue_url}) has been resolved!\n\n**Official Fix Available:** The fix is now included in Home Assistant core.\n\n**Action Required:** Remove this custom component and use the official EZVIZ integration instead.\n\n**Next Steps:**\n1. Remove this custom component\n2. Restart Home Assistant\n3. Use the built-in EZVIZ integration"
     }
   }
 }

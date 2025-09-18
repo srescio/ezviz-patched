@@ -21,21 +21,21 @@ ISSUE_URL = "https://github.com/home-assistant/core/issues/151648"
 async def async_create_fixes(hass: HomeAssistant) -> None:
     """Create repairs for EZVIZ Patched."""
     _LOGGER.info("Creating EZVIZ Patched repair issue")
-    
-    # Create the issue
+
+    # Create the issue with a simple translation key that should work
     async_create_issue(
         hass,
         DOMAIN,
-        ISSUE_ID,
+        "ezviz_patched_temporary_fix_active",
         is_fixable=False,
         is_persistent=False,
         severity=IssueSeverity.WARNING,
         issue_domain=DOMAIN,
-        breaks_in_ha_version="2025.9.0",
+        learn_more_url=ISSUE_URL,
         translation_key="temporary_fix_active",
         translation_placeholders={
             "issue_url": ISSUE_URL,
         },
     )
-    
+
     _LOGGER.info("EZVIZ Patched repair issue created successfully")
