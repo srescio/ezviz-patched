@@ -125,16 +125,10 @@ async def async_setup(hass: HomeAssistant, config: dict) -> bool:
     # System health check removed for now - focus on repairs functionality
 
     # Create repairs and start issue monitoring for custom component override
-    try:
-        import custom_components.ezviz
+    # Since we're in the custom component, we should always create repairs
+    from . import repairs, issue_monitor
 
-        # We're using the custom component, create repairs and start monitoring
-        from . import repairs, issue_monitor
-
-        await repairs.async_create_fixes(hass)
-        await issue_monitor.start_issue_monitoring(hass)
-    except ImportError:
-        # We're using the built-in component, no repairs needed
-        pass
+    await repairs.async_create_fixes(hass)
+    await issue_monitor.start_issue_monitoring(hass)
 
     return True
