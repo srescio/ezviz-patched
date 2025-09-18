@@ -1,21 +1,12 @@
 # Installation Guide
 
-## ⚠️ Important: Before Installing
+## ✅ Easy Installation
 
-**You must remove the original EZVIZ integration first** before installing this patched version, otherwise you'll get a "account is already configured" error.
+This custom component **automatically overrides** the built-in EZVIZ integration. You do **NOT** need to remove your existing EZVIZ integration - it will be seamlessly replaced.
 
 ## Step-by-Step Installation
 
-### 1. Remove Original EZVIZ Integration
-
-1. **Go to Settings > Devices & Services**
-2. **Find the original "EZVIZ" integration**
-3. **Click on it**
-4. **Click the three dots menu (⋮)**
-5. **Select "Delete"**
-6. **Confirm deletion**
-
-### 2. Install EZVIZ Patched via HACS
+### 1. Install EZVIZ Patched via HACS
 
 1. **Open HACS** in Home Assistant
 2. **Go to Integrations**
@@ -28,25 +19,20 @@
 7. **Find "EZVIZ Patched"** in the store and install it
 8. **Restart Home Assistant**
 
-### 3. Configure EZVIZ Patched
+### 2. Automatic Override
 
-1. **Go to Settings > Devices & Services**
-2. **Click "Add Integration"**
-3. **Search for "EZVIZ Patched"**
-4. **Configure your EZVIZ account**
-5. **All your sensors should now work properly!**
+After installation and restart:
 
-## Why This Happens
+- **Your existing EZVIZ configuration will continue to work**
+- **All your cameras and sensors will remain configured**
+- **The custom component will automatically take over**
+- **No reconfiguration needed!**
 
-The original EZVIZ integration and this patched version both try to configure the same EZVIZ account. Home Assistant prevents duplicate configurations, so you need to remove the original first.
+## How Override Works
+
+This custom component uses the same domain name (`ezviz`) as the built-in integration. Home Assistant automatically prioritizes custom components over built-in ones, so your existing configuration will seamlessly continue working with the patched version.
 
 ## Troubleshooting
-
-### "Account is already configured" Error
-
-- Make sure you've completely removed the original EZVIZ integration
-- Check that no EZVIZ entities are still present in your system
-- Restart Home Assistant after removing the original integration
 
 ### Integration Doesn't Appear
 
@@ -56,9 +42,15 @@ The original EZVIZ integration and this patched version both try to configure th
 
 ### Sensors Still Not Working
 
-- Verify you're using the "EZVIZ Patched" integration (not the original)
 - Check the Home Assistant logs for any errors
 - Make sure your EZVIZ account credentials are correct
+- Verify the custom component is loaded (check logs for "Loaded ezviz from custom_components")
+
+### Custom Component Not Loading
+
+- Ensure the custom component files are in `custom_components/ezviz/`
+- Check that `manifest.json` has a valid `version` field
+- Restart Home Assistant completely
 
 ## Reverting Back
 
@@ -66,8 +58,8 @@ If you need to go back to the original EZVIZ integration:
 
 1. **Remove EZVIZ Patched** from HACS
 2. **Restart Home Assistant**
-3. **Add the original EZVIZ integration** from the official integrations list
-4. **Configure your account again**
+3. **The built-in EZVIZ integration will automatically take over again**
+4. **Your existing configuration will continue working**
 
 ## Support
 

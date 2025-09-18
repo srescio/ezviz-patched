@@ -13,34 +13,29 @@ A custom component that overrides the built-in EZVIZ integration. This component
 
 ## 📦 Installation via HACS
 
-⚠️ **IMPORTANT**: You must remove the original EZVIZ integration first, otherwise you'll get a "account is already configured" error.
+✅ **Easy Installation**: This component automatically overrides the built-in EZVIZ integration. Your existing configuration will continue working seamlessly.
 
-### Step 1: Remove Original EZVIZ Integration
-
-1. **Go to Settings > Devices & Services**
-2. **Find the original "EZVIZ" integration**
-3. **Click on it → Three dots menu (⋮) → Delete**
-4. **Confirm deletion and restart Home Assistant**
-
-### Step 2: Install EZVIZ Patched
+### Install EZVIZ Patched
 
 1. **Open HACS** in Home Assistant
 2. **Go to Integrations**
 3. **Click the three dots menu** (⋮)
 4. **Select "Custom repositories"**
 5. **Add repository:**
-   - Repository: `https://github.com/yourusername/ezviz-patched`
+   - Repository: `https://github.com/yourusername/ezviz_patched`
    - Category: `Integration`
 6. **Click "Add"**
 7. **Find "EZVIZ Patched"** in the store and install it
 8. **Restart Home Assistant**
 
-### Step 3: Configure EZVIZ Patched
+### Automatic Override
 
-1. **Go to Settings > Devices & Services**
-2. **Click "Add Integration"**
-3. **Search for "EZVIZ Patched"**
-4. **Configure your EZVIZ account**
+After installation and restart:
+
+- ✅ **Your existing EZVIZ configuration continues to work**
+- ✅ **All your cameras and sensors remain configured**
+- ✅ **The custom component automatically takes over**
+- ✅ **No reconfiguration needed!**
 
 ## 🚀 Usage
 
