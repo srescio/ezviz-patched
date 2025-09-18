@@ -3,12 +3,13 @@
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-A patched version of the EZVIZ integration that fixes the `KeyError: 'mode'` bug that occurred in Home Assistant 2025.9.0.
+A custom component that overrides the built-in EZVIZ integration. This component is identical to the current Home Assistant core EZVIZ integration and includes all the latest fixes, including the resolution for the `KeyError: 'mode'` bug that occurred in Home Assistant 2025.9.0.
 
-## 🐛 What's Fixed
+## ✅ What's Included
 
-- **KeyError: 'mode' bug**: Fixed the missing 'mode' sensor type that was causing most EZVIZ sensors to become unavailable
-- **Comprehensive test coverage**: Added 73 tests to prevent future regressions
+- **Latest EZVIZ integration code**: Identical to current Home Assistant core
+- **All bug fixes**: Includes the fix for the 'mode' sensor KeyError from [PR #151848](https://github.com/home-assistant/core/pull/151848)
+- **Full functionality**: All sensors, cameras, and features work properly
 
 ## 📦 Installation via HACS
 
@@ -51,19 +52,20 @@ This custom component works exactly like the original EZVIZ integration but with
 
 ## ⚠️ Important Notes
 
-- This is a **temporary fix** until the official fix is merged into Home Assistant core
-- Once the official fix is released, you should remove this custom component and use the official integration
-- The domain name is `ezviz_patched` to avoid conflicts with the original integration
+- This component **overrides the built-in EZVIZ integration** using the same domain name (`ezviz`)
+- It contains the **latest code from Home Assistant core** with all current fixes
+- The fix for the `KeyError: 'mode'` bug from [PR #151848](https://github.com/home-assistant/core/pull/151848) is included
 
 ## 🔗 Original Issue
 
-This fixes [Home Assistant issue #151648](https://github.com/home-assistant/core/issues/151648) where EZVIZ sensors were becoming unavailable after updating to Home Assistant 2025.9.0 due to a missing 'mode' sensor type definition.
+This component includes the fix for [Home Assistant issue #151648](https://github.com/home-assistant/core/issues/151648) where EZVIZ sensors were becoming unavailable after updating to Home Assistant 2025.9.0 due to a missing 'mode' sensor type definition.
 
-## 📝 Files Modified
+## 📝 Component Details
 
-- `sensor.py`: Added missing 'mode' sensor type to SENSOR_TYPES
-- `__init__.py`: Updated coordinator data structure handling
-- All files: Updated domain references to `ezviz_patched`
+- **Domain**: `ezviz` (overrides built-in integration)
+- **Version**: `2025.9.0-patched`
+- **Requirements**: `pyezvizapi==1.0.0.7`
+- **Identical to**: Current Home Assistant core EZVIZ integration
 
 ## 📋 Version
 

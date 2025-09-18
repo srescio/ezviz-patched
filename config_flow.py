@@ -390,7 +390,7 @@ class EzvizConfigFlow(ConfigFlow, domain=DOMAIN):
         )
 
 
-class EzvizPatchedOptionsFlowHandler(OptionsFlowWithReload):
+class EzvizOptionsFlowHandler(OptionsFlowWithReload):
     """Handle EZVIZ client options."""
 
     async def async_step_init(

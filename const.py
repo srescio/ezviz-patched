@@ -1,6 +1,6 @@
 """Constants for the ezviz integration."""
 
-DOMAIN = "ezviz_patched"
+DOMAIN = "ezviz"
 MANUFACTURER = "EZVIZ"
 
 # Configuration
