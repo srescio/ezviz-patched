@@ -7,6 +7,6 @@
   "documentation": "https://www.home-assistant.io/integrations/ezviz",
   "iot_class": "cloud_polling",
   "loggers": ["paho_mqtt", "pyezvizapi"],
-  "requirements": ["pyezvizapi==1.0.0.7"],
+  "requirements": ["pyezvizapi==1.0.0.7", "aiohttp"],
   "version": "2025.9.0-patched"
 }
