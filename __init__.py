@@ -118,17 +118,3 @@ async def async_unload_entry(hass: HomeAssistant, entry: EzvizConfigEntry) -> bo
     return await hass.config_entries.async_unload_platforms(
         entry, PLATFORMS_BY_TYPE[sensor_type]
     )
-
-
-async def async_setup(hass: HomeAssistant, config: dict) -> bool:
-    """Set up the EZVIZ component with system health and repairs."""
-    # System health check removed for now - focus on repairs functionality
-
-    # Create repairs and start issue monitoring for custom component override
-    # Since we're in the custom component, we should always create repairs
-    from . import repairs, issue_monitor
-
-    await repairs.async_create_fixes(hass)
-    await issue_monitor.start_issue_monitoring(hass)
-
-    return True

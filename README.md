@@ -3,98 +3,34 @@
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-A custom component that overrides the built-in EZVIZ integration. This component is identical to the current Home Assistant core EZVIZ integration and includes all the latest fixes, including the resolution for the `KeyError: 'mode'` bug that occurred in Home Assistant 2025.9.0.
+A custom Home Assistant component that overrides the built-in EZVIZ integration. Used for testing changes and new features before they are submitted to [Home Assistant core](https://github.com/home-assistant/core). The component code is synced with the latest HA core EZVIZ integration and patched on top.
 
-## ✅ What's Included
-
-- **Latest EZVIZ integration code**: Identical to current Home Assistant core
-- **All bug fixes**: Includes the fix for the 'mode' sensor KeyError from [PR #151848](https://github.com/home-assistant/core/pull/151848)
-- **Full functionality**: All sensors, cameras, and features work properly
-- **Smart UI notifications**: Shows issue status and recommendations in Home Assistant
-- **Automatic monitoring**: Checks GitHub daily to see if the issue is resolved
-
-## 📦 Installation via HACS
-
-✅ **Easy Installation**: This component automatically overrides the built-in EZVIZ integration. Your existing configuration will continue working seamlessly.
-
-### Install EZVIZ Patched
+## Installation via HACS
 
 1. **Open HACS** in Home Assistant
-2. **Go to Integrations**
-3. **Click the three dots menu** (⋮)
-4. **Select "Custom repositories"**
-5. **Add repository:**
-   - Repository: `https://github.com/yourusername/ezviz_patched`
-   - Category: `Integration`
-6. **Click "Add"**
-7. **Find "EZVIZ Patched"** in the store and install it
-8. **Restart Home Assistant**
+2. Go to **Integrations**
+3. Click the three dots menu and select **Custom repositories**
+4. Add this repository URL with category **Integration**
+5. Find **EZVIZ Patched** in the store and install it
+6. **Restart Home Assistant**
 
-### Automatic Override
+Your existing EZVIZ configuration will continue working automatically — no reconfiguration needed. The custom component overrides the built-in integration using the same `ezviz` domain.
 
-After installation and restart:
+## Reverting
 
-- ✅ **Your existing EZVIZ configuration continues to work**
-- ✅ **All your cameras and sensors remain configured**
-- ✅ **The custom component automatically takes over**
-- ✅ **No reconfiguration needed!**
+To go back to the built-in integration:
 
-## 🚀 Usage
+1. Remove EZVIZ Patched from HACS
+2. Restart Home Assistant
 
-This custom component works exactly like the original EZVIZ integration but with the bug fixes applied. You can:
+Your existing configuration will be picked up by the built-in integration automatically.
 
-1. Add it through the integrations UI
-2. Configure your EZVIZ cameras and sensors
-3. All sensors should now work properly without the KeyError
-
-## ⚠️ Important Notes
-
-- This component **overrides the built-in EZVIZ integration** using the same domain name (`ezviz`)
-- It contains the **latest code from Home Assistant core** with all current fixes
-- The fix for the `KeyError: 'mode'` bug from [PR #151848](https://github.com/home-assistant/core/pull/151848) is included
-
-## 🔔 Smart Notifications
-
-This component includes intelligent UI features:
-
-### System Health Check
-
-- **Go to Settings → System → System Health** to see EZVIZ Patched status
-- Shows if you're using the custom component or built-in version
-- Links directly to the GitHub issue and PR
-
-### Repairs & Recommendations
-
-- **Go to Settings → System → Repairs** to see actionable recommendations
-- Shows when the issue is active and when it's resolved
-- Provides direct links to remove the component when no longer needed
-
-### Automatic Issue Monitoring
-
-- Checks GitHub daily to see if [issue #151648](https://github.com/home-assistant/core/issues/151648) is closed
-- Automatically updates recommendations when the official fix is released
-- Shows celebration message when the issue is resolved
-
-## 🔗 Original Issue
-
-This component includes the fix for [Home Assistant issue #151648](https://github.com/home-assistant/core/issues/151648) where EZVIZ sensors were becoming unavailable after updating to Home Assistant 2025.9.0 due to a missing 'mode' sensor type definition.
-
-## 📝 Component Details
+## Component Details
 
 - **Domain**: `ezviz` (overrides built-in integration)
-- **Version**: `2025.9.0-patched`
+- **Based on**: Home Assistant core `dev` branch (synced March 2026)
 - **Requirements**: `pyezvizapi==1.0.0.7`
-- **Identical to**: Current Home Assistant core EZVIZ integration
 
-## 📋 Version
+## License
 
-- Based on Home Assistant 2025.9.0
-- Patched version: 2025.9.0-patched
-
-## 🤝 Contributing
-
-This is a temporary fix. For the official fix, please contribute to the [Home Assistant Core repository](https://github.com/home-assistant/core).
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
