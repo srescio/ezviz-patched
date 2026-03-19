@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -e
+
+echo "Installing Home Assistant core..."
+pip install homeassistant
+
+echo "Setting up config directory..."
+mkdir -p /config/custom_components
+cp "${WORKSPACE:-/workspaces/ezviz-patched}/.devcontainer/configuration.yaml" /config/configuration.yaml
+ln -sfn "${WORKSPACE:-/workspaces/ezviz-patched}" /config/custom_components/ezviz
+
+echo ""
+echo "Setup complete!"
+echo "  Use 'Tasks: Run Task' > 'Run Home Assistant on port 9123' to start HA."
+echo "  UI will be at http://localhost:9123"

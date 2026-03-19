@@ -10,8 +10,12 @@ from homeassistant.components.binary_sensor import (
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
+import logging
+
 from .coordinator import EzvizConfigEntry, EzvizDataUpdateCoordinator
 from .entity import EzvizEntity
+
+_LOGGER = logging.getLogger(__name__)
 
 PARALLEL_UPDATES = 1
 
@@ -28,6 +32,14 @@ BINARY_SENSOR_TYPES: dict[str, BinarySensorEntityDescription] = {
         key="encrypted",
         translation_key="encrypted",
     ),
+    "door_status": BinarySensorEntityDescription(
+        key="door_status",
+        device_class=BinarySensorDeviceClass.DOOR,
+    ),
+    "water_leak_status": BinarySensorEntityDescription(
+        key="water_leak_status",
+        device_class=BinarySensorDeviceClass.MOISTURE,
+    ),
 }
 
 
@@ -38,6 +50,22 @@ async def async_setup_entry(
 ) -> None:
     """Set up EZVIZ sensors based on a config entry."""
     coordinator = entry.runtime_data
+
+    _LOGGER.debug(
+        "binary_sensor setup: %d devices in coordinator.data, keys per device:",
+        len(coordinator.data),
+    )
+    for camera in coordinator.data:
+        matching = {
+            k: v for k, v in coordinator.data[camera].items()
+            if k in BINARY_SENSOR_TYPES
+        }
+        _LOGGER.debug(
+            "  %s (%s): matching keys=%s",
+            camera,
+            coordinator.data[camera].get("device_category"),
+            {k: v for k, v in matching.items()},
+        )
 
     async_add_entities(
         [
@@ -68,4 +96,7 @@ class EzvizBinarySensor(EzvizEntity, BinarySensorEntity):
     @property
     def is_on(self) -> bool:
         """Return the state of the sensor."""
-        return self.data[self._sensor_name]
+        value = self.data[self._sensor_name]
+        if self._sensor_name == "water_leak_status":
+            return value != 2
+        return bool(value)

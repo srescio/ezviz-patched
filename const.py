@@ -33,3 +33,5 @@ RUSSIA_URL = "apirus.ezvizru.com"
 DEFAULT_CAMERA_USERNAME = "admin"
 DEFAULT_TIMEOUT = 25
 DEFAULT_FFMPEG_ARGUMENTS = "/Streaming/Channels/102"
+
+NON_CAMERA_DEVICE_CATEGORIES = {"Detector", "lighting", "Socket"}

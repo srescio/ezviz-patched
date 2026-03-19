@@ -137,6 +137,12 @@
       },
       "wan_ip": {
         "name": "WAN IP"
+      },
+      "zigbee_signal": {
+        "name": "Zigbee signal"
+      },
+      "siren_alarm_volume": {
+        "name": "Siren alarm volume"
       }
     },
     "siren": {

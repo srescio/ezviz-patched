@@ -100,7 +100,6 @@ venv.bak/
 dmypy.json
 
 # IDE
-.vscode/
 .idea/
 *.swp
 *.swo

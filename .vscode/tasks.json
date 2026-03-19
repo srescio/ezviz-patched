@@ -1,0 +1,39 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run Home Assistant on port 9123",
+      "type": "shell",
+      "command": "hass -c /config --debug -v",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "Run Home Assistant configuration against /config",
+      "type": "shell",
+      "command": "hass -c /config --script check_config",
+      "problemMatcher": []
+    },
+    {
+      "label": "Upgrade Home Assistant to latest dev",
+      "type": "shell",
+      "command": "pip install --upgrade git+https://github.com/home-assistant/core.git@dev",
+      "problemMatcher": []
+    },
+    {
+      "label": "Install a specific version of Home Assistant",
+      "type": "shell",
+      "command": "echo 'Enter version (e.g. 2025.3.0):' && read version && pip install homeassistant==$version",
+      "problemMatcher": []
+    },
+    {
+      "label": "Resync config from .devcontainer",
+      "type": "shell",
+      "command": "cp ${workspaceFolder}/.devcontainer/configuration.yaml /config/configuration.yaml && echo 'Config resynced. Restart HA to apply.'",
+      "problemMatcher": []
+    }
+  ]
+}
