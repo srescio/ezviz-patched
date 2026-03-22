@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import logging
+
 from homeassistant.components.binary_sensor import (
     BinarySensorDeviceClass,
     BinarySensorEntity,
@@ -10,8 +12,10 @@ from homeassistant.components.binary_sensor import (
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
-import logging
-
+from .contact_device_class import (
+    async_ensure_contact_window_i18n,
+    infer_contact_sensor_device_class,
+)
 from .coordinator import EzvizConfigEntry, EzvizDataUpdateCoordinator
 from .entity import EzvizEntity
 
@@ -32,6 +36,7 @@ BINARY_SENSOR_TYPES: dict[str, BinarySensorEntityDescription] = {
         key="encrypted",
         translation_key="encrypted",
     ),
+    # device_class overridden per entity from device name (see EzvizBinarySensor.device_class).
     "door_status": BinarySensorEntityDescription(
         key="door_status",
         device_class=BinarySensorDeviceClass.DOOR,
@@ -49,6 +54,7 @@ async def async_setup_entry(
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
     """Set up EZVIZ sensors based on a config entry."""
+    await async_ensure_contact_window_i18n(hass)
     coordinator = entry.runtime_data
 
     _LOGGER.debug(
@@ -92,6 +98,24 @@ class EzvizBinarySensor(EzvizEntity, BinarySensorEntity):
         self._sensor_name = binary_sensor
         self._attr_unique_id = f"{serial}_{self._camera_name}.{binary_sensor}"
         self.entity_description = BINARY_SENSOR_TYPES[binary_sensor]
+        if binary_sensor == "door_status":
+            _LOGGER.debug(
+                "door_status device %s: inferred device_class=%s from name=%r",
+                serial,
+                infer_contact_sensor_device_class(
+                    coordinator.hass, self.data.get("name")
+                ),
+                self.data.get("name"),
+            )
+
+    @property
+    def device_class(self) -> BinarySensorDeviceClass | None:
+        """Use WINDOW when the EZVIZ device name suggests a window contact."""
+        if self._sensor_name == "door_status":
+            return infer_contact_sensor_device_class(
+                self.coordinator.hass, self.data.get("name")
+            )
+        return self.entity_description.device_class
 
     @property
     def is_on(self) -> bool:

@@ -1,11 +1,15 @@
 // For format details, see https://aka.ms/devcontainer.json
 {
   "name": "EZVIZ Patched Dev",
-  "image": "mcr.microsoft.com/devcontainers/python:1-3.12-bullseye",
+  "image": "mcr.microsoft.com/devcontainers/python:1-3.13-bookworm",
   "postCreateCommand": "scripts/setup_devcontainer",
+  "mounts": [
+    "source=ezviz-ha-config,target=/config,type=volume"
+  ],
   "runArgs": [
     "-e", "GIT_EDITOR=code --wait",
-    "--network=host"
+    "--network=host",
+    "--cap-add=NET_RAW"
   ],
   "customizations": {
     "vscode": {
@@ -23,10 +27,14 @@
       }
     }
   },
-  "forwardPorts": [9123],
+  "forwardPorts": [8123, 9123],
   "portsAttributes": {
+    "8123": {
+      "label": "Home Assistant (default)",
+      "onAutoForward": "notify"
+    },
     "9123": {
-      "label": "Home Assistant",
+      "label": "Home Assistant (alt)",
       "onAutoForward": "notify"
     }
   },

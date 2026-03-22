@@ -2,9 +2,9 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Run Home Assistant on port 9123",
+      "label": "Run Home Assistant (8123, /config)",
       "type": "shell",
-      "command": "hass -c /config --debug -v",
+      "command": "bash \"${workspaceFolder}/scripts/run_ha_dev.sh\"",
       "problemMatcher": [],
       "presentation": {
         "reveal": "always",
@@ -32,7 +32,7 @@
     {
       "label": "Resync config from .devcontainer",
       "type": "shell",
-      "command": "cp ${workspaceFolder}/.devcontainer/configuration.yaml /config/configuration.yaml && echo 'Config resynced. Restart HA to apply.'",
+      "command": "cp ${workspaceFolder}/.devcontainer/configuration.yaml /config/configuration.yaml && cp ${workspaceFolder}/.devcontainer/ezviz_burst_scripts.yaml /config/ezviz_burst_scripts.yaml && python3 ${workspaceFolder}/scripts/merge_ezviz_dev_script.py ${workspaceFolder} && echo 'Config + scripts merged. Restart HA to apply.'",
       "problemMatcher": []
     }
   ]

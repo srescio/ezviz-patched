@@ -6,3 +6,13 @@ logger:
     custom_components.ezviz: debug
 # If you need to debug uncomment the line below (doc: https://www.home-assistant.io/integrations/debugpy/)
 # debugpy:
+
+panel_custom:
+  - name: integrations-panel
+    sidebar_title: Integrations
+    sidebar_icon: mdi:puzzle
+    url_path: integrations
+    module_url: /local/integrations-redirect.js
+
+# EZVIZ burst script is merged into this file by scripts/setup_devcontainer (see merge_ezviz_dev_script.py).
+script: !include scripts.yaml

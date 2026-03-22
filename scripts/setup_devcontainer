@@ -1,15 +1,142 @@
 #!/usr/bin/env bash
+# Home Assistant from PyPI does not pull in every runtime dependency; HA normally
+# lazy-installs them, which often fails or leaves imports broken in dev containers.
+# Use bookworm (or newer) so system SQLite is >= 3.40.1 for the recorder.
 set -e
 
+ROOT="${WORKSPACE:-/workspaces/ezviz-patched}"
+
+echo "Installing OS packages (ffmpeg, TurboJPEG libs)..."
+if command -v apt-get >/dev/null 2>&1; then
+  export DEBIAN_FRONTEND=noninteractive
+  # Remove stale third-party repos that can break apt (e.g. expired Yarn GPG key).
+  rm -f /etc/apt/sources.list.d/yarn.list 2>/dev/null || true
+  apt-get update -qq
+  apt-get install -y --no-install-recommends \
+    ffmpeg \
+    libturbojpeg0 \
+    libpcap0.8 \
+    libpcap0.8-dev \
+    ca-certificates \
+    curl \
+    >/dev/null
+fi
+
+# go2rtc binary required for default_config in Docker (see scripts/install_go2rtc_binary.sh).
+bash "${ROOT}/scripts/install_go2rtc_binary.sh" || {
+  echo "Warning: go2rtc install failed; add go2rtc URL to configuration.yaml or fix the script."
+}
+
+echo "Upgrading pip..."
+python3 -m pip install --upgrade pip setuptools wheel
+
 echo "Installing Home Assistant core..."
-pip install homeassistant
+python3 -m pip install homeassistant
+
+echo "Installing frontend + lazy-loaded / default_config dependencies..."
+FRONTEND_REQ=""
+if FRONTEND_REQ=$(python3 -c "
+import importlib.metadata as m
+try:
+    dist = m.distribution('homeassistant')
+    for req in dist.requires or []:
+        req = req.split(';')[0].strip()
+        if req.lower().startswith('home-assistant-frontend'):
+            print(req)
+            break
+except Exception:
+    pass
+" 2>/dev/null) && [[ -n "$FRONTEND_REQ" ]]; then
+  python3 -m pip install "$FRONTEND_REQ"
+else
+  python3 -m pip install home-assistant-frontend
+fi
+
+# Onboarding / default_config: HA starts pip in a worker but imports on the main loop → races.
+python3 -m pip install \
+  "radios==0.3.2" \
+  "pycountry==24.6.1" \
+  "PyMetno==0.13.0" \
+  "gTTS==2.5.3"
+
+# PyTurboJPEG 2.x needs libjpeg-turbo >= 3; Debian bookworm only ships 2.x → stay on 1.x.
+python3 -m pip install \
+  numpy \
+  ha-ffmpeg \
+  aiodhcpwatcher \
+  aiousbwatcher \
+  async-upnp-client \
+  hassil \
+  pyserial \
+  aiodiscover \
+  "cached-ipaddress==1.0.1" \
+  mutagen \
+  home-assistant-intents \
+  "PyTurboJPEG>=1.8.0,<2" \
+  av \
+  "go2rtc-client==0.4.0" \
+  "pymicro-vad==1.0.1" \
+  "pyspeex-noise==1.0.2"
+
+echo "Verifying critical imports..."
+# Run from /tmp so repo files (e.g. select.py) do not shadow the stdlib on sys.path.
+(
+  cd /tmp
+  python3 -c "
+import hass_frontend
+import numpy
+import haffmpeg
+import serial
+import turbojpeg
+import av
+import radios
+import pycountry
+import metno
+import gtts
+import go2rtc_client
+import pymicro_vad
+print('OK:', hass_frontend.__file__)
+"
+)
 
 echo "Setting up config directory..."
-mkdir -p /config/custom_components
-cp "${WORKSPACE:-/workspaces/ezviz-patched}/.devcontainer/configuration.yaml" /config/configuration.yaml
-ln -sfn "${WORKSPACE:-/workspaces/ezviz-patched}" /config/custom_components/ezviz
+mkdir -p /config/custom_components /config/www
+
+# EZVIZ burst-test script: HA only reads /config. Many installs already use
+# ``script: !include scripts.yaml`` — YAML cannot have two ``script:`` keys, so we merge
+# into scripts.yaml via merge_ezviz_dev_script.py. Legacy ``!include ezviz_burst_scripts.yaml``
+# is still supported (file copied below).
+cp -f "${ROOT}/.devcontainer/ezviz_burst_scripts.yaml" /config/ezviz_burst_scripts.yaml
+echo "  Synced /config/ezviz_burst_scripts.yaml (optional include / reference)."
+
+CONFIG_FILE="/config/configuration.yaml"
+# Do not overwrite an existing configuration — postCreate runs on every rebuild.
+if [[ ! -f "${CONFIG_FILE}" ]]; then
+  cp "${ROOT}/.devcontainer/configuration.yaml" "${CONFIG_FILE}"
+  echo "  Installed initial ${CONFIG_FILE} from repo."
+else
+  echo "  Kept existing ${CONFIG_FILE} (delete it to use repo template)."
+  # If there is no script: key yet, add the usual HA pattern + merge will fill scripts.yaml.
+  if grep -qE '^[[:space:]]*script:' "${CONFIG_FILE}" 2>/dev/null; then
+    : # already has script (often !include scripts.yaml); merge_ezviz_dev_script.py handles it
+  else
+    {
+      echo ""
+      echo "# EZVIZ patched dev: scripts live in /config/scripts.yaml (merged on setup)"
+      echo "script: !include scripts.yaml"
+    } >> "${CONFIG_FILE}"
+    echo "  Appended script: !include scripts.yaml to ${CONFIG_FILE} — restart HA to load scripts."
+  fi
+fi
+# Re-run merge after any configuration.yaml change so scripts.yaml exists with burst script.
+python3 "${ROOT}/scripts/merge_ezviz_dev_script.py" "${ROOT}" || true
+
+cp "${ROOT}/.devcontainer/www/integrations-redirect.js" /config/www/integrations-redirect.js
+ln -sfn "${ROOT}" /config/custom_components/ezviz
 
 echo ""
 echo "Setup complete!"
-echo "  Use 'Tasks: Run Task' > 'Run Home Assistant on port 9123' to start HA."
-echo "  UI will be at http://localhost:9123"
+echo "  SQLite: $(python3 -c 'import sqlite3; print(sqlite3.sqlite_version)') (recorder needs >= 3.40.1)"
+echo "  Config + users live on the Docker volume mounted at /config (see .devcontainer/PERSISTENCE.md)."
+echo "  Start HA: hass -c /config"
+echo "  UI: http://localhost:8123"

@@ -1,0 +1,21 @@
+# Synced to /config/ by scripts/setup_devcontainer (edit in repo, re-run setup or copy).
+ezviz_sensor_burst_test:
+  alias: "EZVIZ — burst polling (test sensor update speed)"
+  description: >-
+    Calls ezviz.set_polling_interval (1 s for 120 s). While active, open/close a
+    contact sensor and compare how fast the entity updates vs your normal poll interval.
+  icon: mdi:radar
+  mode: single
+  sequence:
+    - service: ezviz.set_polling_interval
+      data:
+        interval: 1
+        duration: 120
+    - service: persistent_notification.create
+      data:
+        title: "EZVIZ burst polling"
+        message: >-
+          Cloud poll every 1 s for 120 s. Watch a binary_sensor (e.g. door/window)
+          in Developer tools → States or the dashboard; repeat without this script
+          to compare delay.
+        notification_id: ezviz_burst_test_hint
