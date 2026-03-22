@@ -19,7 +19,20 @@ if command -v apt-get >/dev/null 2>&1; then
     libpcap0.8-dev \
     ca-certificates \
     curl \
+    gh \
     >/dev/null
+fi
+
+# Git + GitHub over HTTPS: use gh as credential helper (macOS `osxkeychain` is invalid here).
+if command -v git >/dev/null 2>&1; then
+  if [[ "$(git config --global --get credential.helper 2>/dev/null)" == *osxkeychain* ]]; then
+    git config --global --unset-all credential.helper
+  fi
+  if command -v gh >/dev/null 2>&1; then
+    git config --global --unset-all credential.https://github.com.helper 2>/dev/null || true
+    git config --global credential.https://github.com.helper ""
+    git config --global --add credential.https://github.com.helper '!gh auth git-credential'
+  fi
 fi
 
 # go2rtc binary required for default_config in Docker (see scripts/install_go2rtc_binary.sh).
